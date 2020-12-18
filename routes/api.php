@@ -1,16 +1,17 @@
 <?php
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\JasaController;
+use App\Http\Controllers\Diskon_BelanjaController;
+use App\Http\Controllers\Diskon_PromoController;
+use App\Http\Controllers\Detail_PenjualanController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\History_StockController;
 
+
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\PemindahanSaldoController;
-use App\Http\Controllers\PenambahanSaldoController;
-use App\Http\Controllers\PengaturanCashboxController;
-use App\Http\Controllers\PengaturanCetakInvoiceController;
-use App\Http\Controllers\PengaturanCetakStrukController;
-use App\Http\Controllers\PengaturanPrinterController;
-use App\Http\Controllers\PengaturanRekeningController;
-use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,72 +27,118 @@ use App\Http\Controllers\ProdukController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/customer',[CustomerController::class, 'index']);
+Route::get('/customer/{id}',[CustomerController::class, 'cari']);
+Route::get('/customer/cari/{nama}',[CustomerController::class, 'caribro']);
+Route::post('/customer/tambah',[CustomerController::class, 'create']);
+// Route::post('/Customer/tambah/{Customer}',[CustomerController::class, 'create']);
+Route::put('/customer/edit/{id}',[CustomerController::class, 'edit']);
+Route::delete('/customer/delete/{id}',[CustomerController::class, 'delete']);
+Route::delete('/customer/undelete/{id}',[CustomerController::class, 'undelete']);
 
-Route::get('/PemindahanSaldo/kabeh', [PemindahanSaldoController::class, 'kabeh']);
-Route::get('/PemindahanSaldo', [PemindahanSaldoController::class, 'index']);
-Route::get('/PemindahanSaldo/{id}', [PemindahanSaldoController::class, 'cari']);
-Route::get('/PemindahanSaldo/tanggal/{tanggal}', [PemindahanSaldoController::class, 'caritanggal']);
-Route::post('/PemindahanSaldo/tambah', [PemindahanSaldoController::class, 'tambah']);
-Route::put('/PemindahanSaldo/ubah/{id}', [PemindahanSaldoController::class, 'ubah']);
-Route::delete('/PemindahanSaldo/hapus/{id}', [PemindahanSaldoController::class, 'hapus']);
-Route::delete('/PemindahanSaldo/unhapus/{id}', [PemindahanSaldoController::class, 'unhapus']);
+Route::get('/jasa',[JasaController::class, 'index']);
+Route::get('/jasa/all',[JasaController::class, 'index_all']);
+Route::get('/jasa/{id}',[JasaController::class, 'cari']);
+Route::get('/jasa/cari/{nama}',[JasaController::class, 'caribro']);
+Route::post('/jasa/tambah',[JasaController::class, 'create']);
+Route::put('/jasa/edit/{id}',[JasaController::class, 'edit']);
+Route::delete('/jasa/delete/{id}',[JasaController::class, 'delete']);
+Route::delete('/jasa/undelete/{id}',[JasaController::class, 'undelete']);
 
-Route::get('/PenambahanSaldo/kabeh', [PenambahanSaldoController::class, 'kabeh']);
-Route::get('/PenambahanSaldo', [PenambahanSaldoController::class, 'index']);
-Route::get('/PenambahanSaldo/{id}', [PenambahanSaldoController::class, 'cari']);
-Route::get('/PenambahanSaldo/tanggal/{tanggal}', [PenambahanSaldoController::class, 'caritanggal']);
-Route::post('/PenambahanSaldo/tambah', [PenambahanSaldoController::class, 'tambah']);
-Route::put('/PenambahanSaldo/ubah/{id}', [PenambahanSaldoController::class, 'ubah']);
-// Route::delete('/PenambahanSaldo/hapus/{id}', [PenambahanSaldoController::class, 'hapus']);
-// Route::delete('/PenambahanSaldo/unhapus/{id}', [PenambahanSaldoController::class, 'unhapus']);
+Route::get('/diskon_belanja',[Diskon_BelanjaController::class, 'index']);
+Route::get('/diskon_belanja/{id}',[Diskon_BelanjaController::class, 'cari']);
+Route::get('/diskon_belanja/cari/{harga_jual}',[Diskon_BelanjaController::class, 'caribro']);
+Route::post('/diskon_belanja/tambah',[Diskon_BelanjaController::class, 'create']);
+Route::put('/diskon_belanja/edit/{id}',[Diskon_BelanjaController::class, 'edit']);
+Route::delete('/diskon_belanja/delete/{id}',[Diskon_BelanjaController::class, 'delete']);
+Route::delete('/diskon_belanja/undelete/{id}',[Diskon_BelanjaController::class, 'undelete']);
 
-Route::get('/PengaturanCashbox', [PengaturanCashboxController::class, 'index']);
-Route::get('/PengaturanCashbox/{id}', [PengaturanCashboxController::class, 'cari']);
-Route::get('/PengaturanCashbox/namaakun/{nama_akun}', [PengaturanCashboxController::class, 'carinamaakun']);
-Route::post('/PengaturanCashbox/tambah', [PengaturanCashboxController::class, 'tambah']);
-Route::put('/PengaturanCashbox/ubah/{id}', [PengaturanCashboxController::class, 'ubah']);
-Route::delete('/PengaturanCashbox/hapus/{id}', [PengaturanCashboxController::class, 'hapus']);
-Route::delete('/PengaturanCashbox/unhapus/{id}', [PengaturanCashboxController::class, 'unhapus']);
+Route::get('/diskon_promo',[Diskon_PromoController::class, 'index']);
+Route::get('/diskon_promo/{id}',[Diskon_PromoController::class, 'cari']);
+Route::get('/diskon_promo/cari/{harga_jual}',[Diskon_PromoController::class, 'caribro']);
+Route::post('/diskon_promo/tambah',[Diskon_PromoController::class, 'create']);
+Route::put('/diskon_promo/edit/{id}',[Diskon_PromoController::class, 'edit']);
+Route::delete('/diskon_promo/delete/{id}',[Diskon_PromoController::class, 'delete']);
+Route::delete('/diskon_promo/undelete/{id}',[Diskon_PromoController::class, 'undelete']);
 
-Route::get('/PengaturanCetakInvoice', [PengaturanCetakInvoiceController::class, 'index']);
-Route::get('/PengaturanCetakInvoice/{id}', [PengaturanCetakInvoiceController::class, 'cari']);
-// Route::get('/PengaturanCetakInvoice/panjangkarakter/{panjang_karakter}', [PengaturanCetakInvoiceController::class, 'caripanjangkarakter']);
-Route::post('/PengaturanCetakInvoice/tambah', [PengaturanCetakInvoiceController::class, 'tambah']);
-Route::put('/PengaturanCetakInvoice/ubah/{id}', [PengaturanCetakInvoiceController::class, 'ubah']);
-// Route::delete('/PengaturanCetakInvoice/hapus/{id}', [PengaturanCetakInvoiceController::class, 'hapus']);
-// Route::delete('/PengaturanCetakInvoice/unhapus/{id}', [PengaturanCetakInvoiceController::class, 'unhapus']);
+Route::get('/penjualan',[PenjualanController::class, 'index']);
+Route::get('/penjualan/all',[PenjualanController::class, 'index_all']);
+Route::get('/penjualan/{id}',[PenjualanController::class, 'cari']);
+Route::get('/penjualan/cari/{nama}',[PenjualanController::class, 'caribro']);
+Route::post('/penjualan/tambah',[PenjualanController::class, 'create']);
+Route::put('/penjualan/edit/{id}',[PenjualanController::class, 'edit']);
+Route::delete('/penjualan/delete/{id}',[PenjualanController::class, 'delete']);
+Route::delete('/penjualan/undelete/{id}',[PenjualanController::class, 'undelete']);
 
-Route::get('/PengaturanCetakStruk', [PengaturanCetakStrukController::class, 'index']);
-Route::get('/PengaturanCetakStruk/{id}', [PengaturanCetakStrukController::class, 'cari']);
-// Route::get('/PengaturanCetakStruk/panjangkarakterstruk/{panjang_karakter_struk}', [PengaturanCetakStrukController::class, 'caripanjangkarakterstruk']);
-Route::post('/PengaturanCetakStruk/tambah', [PengaturanCetakStrukController::class, 'tambah']);
-Route::put('/PengaturanCetakStruk/ubah/{id}', [PengaturanCetakStrukController::class, 'ubah']);
-// Route::delete('/PengaturanCetakStruk/hapus/{id}', [PengaturanCetakStrukController::class, 'hapus']);
-// Route::delete('/PengaturanCetakStruk/unhapus/{id}', [PengaturanCetakStrukController::class, 'unhapus']);
+Route::get('/detail-penjualan',[Detail_PenjualanController::class, 'index']);
+Route::get('/detail-penjualan/all',[Detail_PenjualanController::class, 'index_all']);
+Route::get('/detail-penjualan/{id}',[Detail_PenjualanController::class, 'cari']);
+Route::get('/detail-penjualan/cari/{nama}',[Detail_PenjualanController::class, 'caribro']);
+Route::post('/detail-penjualan/tambah',[Detail_PenjualanController::class, 'create']);
+Route::put('/detail-penjualan/edit/{id}',[Detail_PenjualanController::class, 'edit']);
+Route::delete('/detail-penjualan/delete/{id}',[Detail_PenjualanController::class, 'delete']);
+Route::delete('/detail-penjualan/undelete/{id}',[Detail_PenjualanController::class, 'undelete']);
 
-Route::get('/PengaturanPrinter', [PengaturanPrinterController::class, 'index']);
-Route::get('/PengaturanPrinter/{id}', [PengaturanPrinterController::class, 'cari']);
-Route::post('/PengaturanPrinter/tambah', [PengaturanPrinterController::class, 'tambah']);
-Route::put('/PengaturanPrinter/ubah/{id}', [PengaturanPrinterController::class, 'ubah']);
-// Route::delete('/PengaturanPrinter/hapus/{id}', [PengaturanPrinterController::class, 'hapus']);
-// Route::delete('/PengaturanPrinter/unhapus/{id}', [PengaturanPrinterController::class, 'unhapus']);
+Route::get('/history-stock',[History_StockController::class, 'index']);
+Route::get('/history-stock/all',[History_StockController::class, 'index_all']);
+Route::get('/history-stock/{id}',[History_StockController::class, 'cari']);
+Route::get('/history-stock/cari/{nama}',[History_StockController::class, 'caribro']);
+Route::post('/history-stock/tambah',[History_StockController::class, 'create']);
+Route::put('/history-stock/edit/{id}',[History_StockController::class, 'edit']);
+// Route::delete('/history-stock/delete/{id}',[History_StockController::class, 'delete']);
+// Route::delete('/history-stock/undelete/{id}',[History_StockController::class, 'undelete']);
 
-Route::get('/PengaturanRekening', [PengaturanRekeningController::class, 'index']);
-Route::get('/PengaturanRekening/{id}', [PengaturanRekeningController::class, 'cari']);
-Route::get('/PengaturanRekening/namabank/{nama_bank}', [PengaturanRekeningController::class, 'carinamabank']);
-Route::get('/PengaturanRekening/nomorrekening/{nomor_rekening}', [PengaturanRekeningController::class, 'carinomorrekening']);
-Route::get('/PengaturanRekening/pemilikrekening/{pemilik_rekening}', [PengaturanRekeningController::class, 'caripemilikrekening']);
-Route::post('/PengaturanRekening/tambah', [PengaturanRekeningController::class, 'tambah']);
-Route::put('/PengaturanRekening/ubah/{id}', [PengaturanRekeningController::class, 'ubah']);
-Route::delete('/PengaturanRekening/hapus/{id}', [PengaturanRekeningController::class, 'hapus']);
-Route::delete('/PengaturanRekening/unhapus/{id}', [PengaturanRekeningController::class, 'unhapus']);
 
-// Route::get('/produk/kabeh', [ProdukController::class, 'kabeh']);
-// Route::delete('/produk/unhapus/{id}', [ProdukController::class, 'unhapus']);
 
-// Route::get('/produk', [ProdukController::class, 'index']);
-// Route::get('/produk/{id}', [ProdukController::class, 'cari']);
-// Route::get('/produk/nama/{nama}', [ProdukController::class, 'carinama']);
-// Route::post('/produk/tambah', [ProdukController::class, 'tambah']);
-// Route::put('/produk/ubah/{id}', [ProdukController::class, 'ubah']);
-// Route::delete('produk/hapus/{id}', [ProdukController::class, 'hapus']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/produk',[ProdukController::class, 'index']);
+Route::get('/produk/all',[ProdukController::class, 'index_all']);
+Route::get('/produk/{id}',[ProdukController::class, 'cari']);
+Route::get('/produk/cari/{nama}',[ProdukController::class, 'caribro']);
+// Route::get('/produk/cari/{jenis}',[ProdukController::class, 'carijenis']);
+
+Route::post('/produk/tambah',[ProdukController::class, 'create']);
+Route::put('/produk/edit/{id}',[ProdukController::class, 'edit']);
+Route::delete('/produk/delete/{id}',[ProdukController::class, 'delete']);
+Route::delete('/produk/undelete/{id}',[ProdukController::class, 'undelete']);
+
+Route::get('/kategori',[KategoriController::class, 'index']);
+Route::get('/kategori/{id}',[KategoriController::class, 'cari']);
+Route::get('/kategori/cari/{nama}',[KategoriController::class, 'caribro']);
+Route::post('/kategori/tambah',[KategoriController::class, 'create']);
+// Route::post('/kategori/tambah/{kategori}',[KategoriController::class, 'create']);
+Route::put('/kategori/edit/{id}',[KategoriController::class, 'edit']);
+Route::delete('/kategori/hapus/{id}',[KategoriController::class, 'delete']);
